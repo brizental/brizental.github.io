@@ -32,7 +32,13 @@ aside {
     height: 150px;
     border: 2px solid #e0e0e0;
     object-fit: cover;
+    object-position: 0 -35px;
     margin-bottom: 2rem;
+
+    @media all and (max-width: 420px) {
+      height: 100px;
+      object-position: 0 0;
+    }
   }
 
   h1 {
