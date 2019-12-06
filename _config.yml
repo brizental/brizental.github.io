@@ -27,6 +27,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://brizental.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: brizental
 github_username:  brizental
+future: true # Let me make posts with dates from the future!
 
 # Build settings
 theme: minima
