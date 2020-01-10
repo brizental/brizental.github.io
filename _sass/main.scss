@@ -24,6 +24,19 @@ li {
   margin-bottom: .5rem;
 }
 
+hr {
+  height: 0;
+  border: none;
+  border-bottom: 1px dashed #e0e0e0;
+  margin: 1.5rem 0;
+}
+
+code {
+  background-color: #f0f0f0;
+  display: inline-block;
+  padding: 0 .2rem;
+}
+
 aside {
   margin-bottom: 2rem;
 
@@ -106,4 +119,24 @@ pre {
   .post-date {
     color: #666;
   }
+}
+
+.image {
+  margin: 1rem 0;
+  padding: 0;
+
+  img {
+    max-width: 100%;
+  }
+
+  figcaption {
+    font-size: .7rem;
+  }
+}
+
+blockquote {
+  border-left: 3px solid #e0e0e0;
+  margin-left: 0;
+  padding-left: 1.5rem;
+  color: #666;
 }

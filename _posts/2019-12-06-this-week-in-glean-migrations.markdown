@@ -9,6 +9,8 @@ categories: glean mozilla twig
 
 Last week's blog post: [This Week in Glean: Differences](https://fnordig.de/2019/11/29/this-week-in-glean/) by jan-erik.
 
+---
+
 The Glean team has spent a bunch of 2019 rewriting the Glean SDK (which was initially written in Kotlin) in Rust and by the end of October we finally released that rewrite into the world. For more on that, refer to the previous TWiG blog post by jan-erik: [A Release](https://fnordig.de/2019/10/24/this-week-in-glean/).
 
 Of course, as with any major rewrite, we had to put some mechanisms in place so that a client that needed to transition from a previous version did so without any major problems. For Glean, that meant data migrations. Each metric type was locally stored a bit differently in the Kotlin implementation than it is now in the Rust one, so that had to be changed. The migration code was to be run the first time the updated Glean was initialized and only once.
