@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "This Week in Glean: Publishing Glean.js or How I configured a Javascript package that has multiple entry points"
+title:  "This Week in Glean: Publishing Glean.js or How I configured an npm package that has multiple entry points"
 date:   2021-04-07 18:00:00 +0100
 categories: glean mozilla twig
 ---
@@ -8,11 +8,11 @@ categories: glean mozilla twig
 _(“This Week in Glean” is a series of blog posts that the Glean Team at Mozilla is using to try to
 communicate better about our work. They could be release notes, documentation, hopes, dreams, or
 whatever: so long as it is inspired by Glean. You can find
-[an index of all TWiG posts online](https://mozilla.github.io/glean/book/appendix/twig.htm)._
+[an index of all TWiG posts online](https://mozilla.github.io/glean/book/appendix/twig.htm))._
 
 All "This Week in Glean" blog posts are listed in the [TWiG index](https://mozilla.github.io/glean/book/appendix/twig.html)
 (and on the [Mozilla Data blog](https://blog.mozilla.org/data/category/glean/)).
-This article is [cross-posted on the Mozilla Data blog](https://blog.mozilla.org/data/<TODO>).
+This article is [cross-posted on the Mozilla Data blog](https://blog.mozilla.org/data/2021/04/07/this-week-in-glean-publishing-glean-js/).
 
 ---
 
