@@ -18,20 +18,20 @@ This article is [cross-posted on the Mozilla Data blog](https://blog.mozilla.org
 
 A few weeks ago, it came the time for us to publish the first version of Glean.js in npm. (Yes,
 it has been published. Go [take a look](https://www.npmjs.com/package/@mozilla/glean)). In order
-to publish a package on npm, it is important to define the package entry points in the projects
+to publish a package on npm, it is important to define the package entry points in the project's
 [`package.json`](https://nodejs.org/api/packages.html) file. The entry point is the path to the file
 that should be loaded when users import a package through `import Package from "package-name"` or
 `const Package = require("package-name")`.
 
-My knowledge in this area, went as far as "Hm, I think that [`main`](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#main)
+My knowledge in this area went as far as "Hm, I think that [`main`](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#main)
 field in the `package.json` is where we define the entry point, right?". Yes, I was right about that,
-but turns out that was not enough for Glean.js.
+but it turns out that was not enough for Glean.js.
 
 ## The case of Glean.js
 
 Glean.js is an implementation of Glean for Javascript environments. "Javascript environments" can
 mean multiple things: Node.js servers, Electron apps, websites, webextensions... The list goes on.
-To complicate things, Glean.js needs to access a bunch of platform specific APIs, such as client
+To complicate things, Glean.js needs to access a bunch of platform specific APIs such as client
 side storage. We designed Glean.js in such a way that platform specific code is abstracted away under
 the [`Platform`](https://github.com/mozilla/glean.js/tree/main/glean/src/platform) module, but when
 users import Glean.js all of this should be opaque.
@@ -82,7 +82,7 @@ page on Typecript's documentation, this is the example provided:
 ```
 
 Notice the `types` property. It works just like the `main` property. It does not accept an object,
-but only a single entry point. And here we go again, what do you do when the package has multiple
+only a single entry point. And here we go again, what do you do when the package has multiple
 entry points?
 
 ## The `typesVersions` workaround
@@ -152,7 +152,7 @@ this is how our example can be changed to use conditional exports:
       "require": "path/to/entry/point/node.cjs",
     },
     ...
-  }
+  },
   "typesVersions": {
     "*": {
       "./webext": [ "path/to/types/definitions/webext.d.ts" ],
@@ -173,22 +173,22 @@ or through [plugins](https://github.com/rollup/plugins/tree/master/packages/comm
 
 ## Final considerations
 
-Although the steps in this post look straight forward enough, it took me quite a while to figure out
+Although the steps in this post look straightforward enough, it took me quite a while to figure out
 the correct way to configure the Glean.js' entry points. I encountered many caveats along the way, such
 as the `typesVersions` workaround I mentioned above, but also:
 
 - In order to support ES6 modules, it is necessary to include the filename and extension in all internal
 package import statements. CommonJS infers the extension and the filename when it is not provided,
 but ES6 doesn't. This get's extra weird in Glean.js' codebase, because Glean.js is in Typescript
-and still all our import statements have the `.js` extension. See more discussion about this on
+and all our import statements still have the `.js` extension. See more discussion about this on
 [this issue](https://github.com/microsoft/TypeScript/issues/16577#issuecomment-754941937) and
 [our commit with this change](https://github.com/mozilla/glean.js/pull/123/commits/607c9d5285298f7afbc6187d3b2bdd7d0c1f25b3).
-- Webpack below version 5, does not have support for the `exports` field and is not able to import a
+- Webpack, below version 5, does not have support for the `exports` field and is not able to import a
 package that defined entry points only using this feature. See the [Webpack 5 release notes](https://webpack.js.org/blog/2020-10-10-webpack-5-release/#major-changes-new-nodejs-ecosystem-features).
 - Other exports conditions such as `browser`, `production` or `development` are mentioned
 in the [Node.js documentation](https://nodejs.org/api/packages.html#packages_conditions_definitions),
 but are ultimately ignored by Node.js. They are used by bundlers such as Webpack and Rollup. The Webpack
 documentation has [a comprehensive list of all the conditions](https://webpack.js.org/guides/package-exports/#conditions)
-you can possibly include in that list, which bundler supports each and whether Node.js supports it too.
+you can possibly include in that list, which bundler supports each, and whether Node.js supports it too.
 
 Hope this guide is helpful to other people on the internet. Bye! 👋
