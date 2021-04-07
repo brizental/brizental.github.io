@@ -36,12 +36,12 @@ side storage. We designed Glean.js in such a way that platform specific code is 
 the [`Platform`](https://github.com/mozilla/glean.js/tree/main/glean/src/platform) module, but when
 users import Glean.js all of this should be opaque.
 
-To address this, wee decided to provide a different package entry point per environment. This way,
-users can import the correct Glean for their environments and not care about internal architecture
-details e.g. `import Glean from "glean/webext"` imports the version of Glean that users the web
-extensions implementaion of the `Platform` module.
+So, we decided to provide a different package entry point per environment. This way, users can import
+the correct Glean for their environments and not care about internal architecture details e.g.
+`import Glean from "glean/webext"` imports the version of Glean that uses the web extensions
+implementaion of the `Platform` module.
 
-The `main` field I mentioned above, works when the package has one single entry point. What do you
+The `main` field I mentioned above works when the package has one single entry point. What do you
 do when the package has multiple entry points?
 
 ## The `exports` field
@@ -106,7 +106,7 @@ Back to our previous example, type definitions mappings would look like this in 
   "exports": {
     "./webext": "path/to/entry/point/webext.js",
     "./node": "path/to/entry/point/node.js",
-  }
+  },
   "typesVersions": {
     "*": {
       "./webext": [ "path/to/types/definitions/webext.d.ts" ],
@@ -126,14 +126,14 @@ defined entry points to choose from depending on the platform they are building 
 If they are building for Node.js though, they still might encounter issues. The default module system
 used by Node.js is [commonjs](https://nodejs.org/docs/latest/api/modules.html#modules_modules_commonjs_modules).
 This is the one where we import packages by using the `const Package = require("package")` syntax
-and export modules by using the `module.exports = Module` syntax.
+and export modules by using the `module.exports = Package` syntax.
 
 [Newer versions of Node](https://nodejs.org/api/esm.html), also support the [ECMAScript module system](https://tc39.es/ecma262/#sec-modules)
 , also known as ESM. This is the offical Javascript module system and is the one where we import
 packages by using the `import Package from "package"` syntax and export modules by using the
 `export default Package` syntax.
 
-Packages can provide different builds to work in each module system. In the `exports` field, Node.js
+Packages can provide different builds using each module system. In the `exports` field, Node.js
 allows packages to define different export paths to be imported depending on the module system
 a user is relying on. This feature is called ["conditional exports"](https://nodejs.org/api/packages.html#packages_conditional_exports).
 
@@ -174,7 +174,7 @@ or through [plugins](https://github.com/rollup/plugins/tree/master/packages/comm
 ## Final considerations
 
 Although the steps in this post look straight forward enough, it took me quite a while to figure out
-the correct way to provide the Glean.js' entry points. I encountered many caveats along the way, such
+the correct way to configure the Glean.js' entry points. I encountered many caveats along the way, such
 as the `typesVersions` workaround I mentioned above, but also:
 
 - In order to support ES6 modules, it is necessary to include the filename and extension in all internal
@@ -185,7 +185,7 @@ and still all our import statements have the `.js` extension. See more discussio
 [our commit with this change](https://github.com/mozilla/glean.js/pull/123/commits/607c9d5285298f7afbc6187d3b2bdd7d0c1f25b3).
 - Webpack below version 5, does not have support for the `exports` field and is not able to import a
 package that defined entry points only using this feature. See the [Webpack 5 release notes](https://webpack.js.org/blog/2020-10-10-webpack-5-release/#major-changes-new-nodejs-ecosystem-features).
-- Other conditional exports keywords such as `browser`, `production` or `development` are mentioned
+- Other exports conditions such as `browser`, `production` or `development` are mentioned
 in the [Node.js documentation](https://nodejs.org/api/packages.html#packages_conditions_definitions),
 but are ultimately ignored by Node.js. They are used by bundlers such as Webpack and Rollup. The Webpack
 documentation has [a comprehensive list of all the conditions](https://webpack.js.org/guides/package-exports/#conditions)
