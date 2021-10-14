@@ -28,6 +28,10 @@ url: "https://brizental.github.io" # the base hostname & protocol for your site,
 github_username:  brizental
 future: true # Let me make posts with dates from the future!
 permalink: /:year/:month/:day/:title.html
+collections:
+  notes:
+    output: true
+    permalink: /:year/:month/:day/:title.html
 
 # Build settings
 theme: minima

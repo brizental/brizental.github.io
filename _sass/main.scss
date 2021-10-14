@@ -70,6 +70,34 @@ main {
   padding: 2rem;
 }
 
+.post-headers {
+  display: flex;
+
+  button {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 2rem;
+    cursor: pointer;
+    color: #e0e0e0;
+
+    &.active {
+      color: black;
+    }
+  }
+}
+
+.post-block {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
 .post-list {
   padding-left: 0;
   margin: 2rem 0;
