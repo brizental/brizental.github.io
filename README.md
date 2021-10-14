@@ -1,2 +1,4 @@
 # brizental.github.io
-Repository with the source code to my personal blog
+
+Bea's personal blog, where she will mostly talk about software development
+and her love for sour cream.
